@@ -1,0 +1,63 @@
+.tokens{
+    max-width: 360px;
+    overflow-x: scroll;
+    padding-bottom: 20px;
+}
+.tokens .token{
+    margin-right: 7px;
+    padding-top: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    font-size: 18px;
+    line-height: 3;
+    box-shadow: 0px 1px 1px #cccccc;
+    border: 1px solid #ccc;
+}
+.tokens .token-literal{
+    background: #ebebeb;
+    color: #212529;
+}
+.tokens .token-symbol{
+    background: #ffe9bf;
+    color: #212529;
+}
+.tokens .token-string{
+    background: #e1ff8a;
+    color: #212529;
+}
+.tokens .token-number{
+    background: #ffcad3;
+    color: #212529;
+}
+.tokens .token-parenthesis{
+    background: #b6ffb0;
+    color: #212529;
+}
+.tokens .token-bracket{
+    background: #ffd1d1;
+    color: #212529;
+}
+.tokens .token-statement-terminator{
+    background: #e1c3ff;
+    color: #212529;
+}
+.tokens .token-html-element{
+    background: #ffd1d1;
+    color: #212529;
+}
+.tokens .token-html-text{
+    background: #ebebeb;
+    color: #212529;
+}
+.tokens .code-block{
+    padding-left: 20px
+}
+.tokens .custom-br{
+    margin: 0px;
+}
+.html-no-wrap{
+    white-space: nowrap; 
+}
+

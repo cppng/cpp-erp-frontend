@@ -1,0 +1,21 @@
+.action-btn:focus{
+    box-shadow: none !important;
+}
+
+.custom-dropdown{
+    position: absolute !important;
+    will-change: transform !important;
+    top: -35px !important;
+    left: -30px !important;
+    transform: translate3d(-130px, 38px, 0px);
+}
+
+@media only screen and (max-width: 768px) {
+    .custom-dropdown{
+        position: absolute !important;
+        will-change: transform !important;
+        top: 0px !important;
+        left: 0px !important;
+        transform: translate3d(-130px, 38px, 0px);
+    }
+}
