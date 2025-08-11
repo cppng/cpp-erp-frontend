@@ -21,7 +21,7 @@ const tabs = [
     {Code: "NOK", Name: "NEXT OF KIN", Title: "Next of Kin Information"},
     {Code: "Employment", Name: "EMPLOYMENT", Title: "Employment Details"},
     {Code: "Salary", Name: "SALARY", Title: "Employee Salary"},
-    {Code: "SalaryElements", Name: "BENEFITS / DEDUCTIONS", Title: "Benefits, Allowances, and Deductions"},
+    {Code: "SalaryElements", Name: "BENEFITS / DEDUCTIONS", Title: "Benefits and Deductions"},
     {Code: "Statutory", Name: "STATUTORY", Title: "Tax & Statutory Information"},
     {Code: "Education", Name: "EDUCATION", Title: "Education and Qualifications"},
     {Code: "Work", Name: "WORK EXPERIENCE", Title: "Past Work Experiencies"},
@@ -132,7 +132,7 @@ function EmployeeForm() {
                                 {(selectedTab.Code == "NOK") && <EmpNOKForm obj={null}  slug={code} />}
                                 {(selectedTab.Code == "Employment") && <EmpDetailsForm obj={null} slug={code} />}
                                 {(selectedTab.Code == "Salary") && <EmpSalaryForm obj={null} slug={code} />}
-                                {(selectedTab.Code == "SalaryElements") && <EmpSalaryElemForm obj={null} />}
+                                {(selectedTab.Code == "SalaryElements") && <EmpSalaryElemForm slug={code} />}
                                 {(selectedTab.Code == "Statutory") && <EmpStatutoryForm obj={null} slug={code} />}
                                 {(selectedTab.Code == "Education") && <EmpEduForm obj={null} />}
                                 {(selectedTab.Code == "Work") && <EmpWorkForm obj={null} />}

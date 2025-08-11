@@ -71,6 +71,20 @@ export const empSalaryUpdate = async (payload) => {
     }
 }
 
+export const empSavePayElem = async (payload) => {
+    try {
+        const response = await axios.post(`${API_URL}hr/employee/emp-save-pay-elem`, payload, {
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json",
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const empStatutoryUpdate = async (payload) => {
     try {
         const response = await axios.post(`${API_URL}hr/employee/emp-statutory-update`, payload, {
@@ -96,5 +110,26 @@ export const getEmployees = async (payload) => {
         return response.data;
     } catch (error) {
         throw error;
+    }
+}
+
+export const getEmpPayElemList = async (payload) => {
+    try {
+        const response = await axios.post(`${API_URL}hr/employee/emp-pay-elem-list`, payload, {
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json",
+            },
+        });
+
+        var obj = response.data;
+        if(obj.success){
+            return obj.data
+        }
+
+        return [];
+
+    } catch (error) {
+        return [];
     }
 }

@@ -3,12 +3,10 @@ import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from 'react-router-dom';
-import { API_URL } from '../../global/components/Constants';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { getEmpPayElemList, empSavePayElem } from '../../utils/api-services/hr/employee';
+import EmpSalaryElemItem from './EmpSalaryElemItem';
 
-function EmpSalaryElemForm({obj}) {
+function EmpSalaryElemForm({slug}) {
 
     const [formId, setFormId] = useState("0");
     const [elements, setElements] = useState([]);
@@ -20,7 +18,15 @@ function EmpSalaryElemForm({obj}) {
     const [frmMsg, setFrmMsg] = useState("");
 
     useEffect(()=>{
+        loadElements();
     }, []);
+
+    const loadElements = async ()=>{
+        setPosting(true);
+        const data = await getEmpPayElemList({Slug: slug});
+        setElements(data);
+        setPosting(true);
+    }
 
     const showModal = ()=> {
         setModal(true);
@@ -31,9 +37,42 @@ function EmpSalaryElemForm({obj}) {
     }
 
     const saveForm = async ()=>{
+        setFrmMsg("");
+    
+        if(type == ""){
+            setFrmMsg("Please select type");
+            return;
+        }
+    
+        if(name == ""){
+            setFrmMsg("Please enter name");
+            return;
+        }
 
+        if(amount == ""){
+            setFrmMsg("Please enter amount");
+            return;
+        }
+    
+        setPosting(true);
+    
+        const dataToSave = {
+            Id: formId,
+            EmployeeSlug: slug,
+            EntryType: type,
+            ElementCode: "",
+            Name: name,
+            Amount: amount
+        }
+    
+        const obj = await empSavePayElem(dataToSave);
+        if(obj.success){
+            loadElements();
+            closeModal();
+        }
+    
+        setPosting(true);
     }
-
 
     const styles = {
         page:{
@@ -78,7 +117,7 @@ function EmpSalaryElemForm({obj}) {
                     <label style={styles.label}>Type</label>
                     <select value={type} onChange={e => setType(e.target.value)} className="form-control">
                         <option key={0} value={""}>- Select -</option>
-                        <option key={1} value={"Benefit"}>Benefit/Allowance</option>
+                        <option key={1} value={"Benefit"}>Benefit</option>
                         <option key={2} value={"Deduction"}>Deduction</option>
                     </select>
                 </div>
@@ -106,6 +145,13 @@ function EmpSalaryElemForm({obj}) {
 
     return (
         <div> 
+
+            <div>
+                {elements.map((itm, index) => (
+                    <EmpSalaryElemItem key={index} obj={itm} params={null} />
+                ))}
+            </div>
+
             <div className="form-group">
                 <button onClick={showModal} style={styles.addBth} className='btn btn-outline-primary'>
                     <FontAwesomeIcon icon={faPlus} /> Add Item
