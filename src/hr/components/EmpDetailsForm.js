@@ -6,9 +6,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { empDetailsUpdate } from '../../utils/api-services/hr/employee';
 
-function EmpDetailsForm({obj, slug}) {
+function EmpDetailsForm({obj}) {
 
-    const [formId, setFormId] = useState("0");
     const [code, setCode] = useState("");
     const [jobTitle, setJobTitle] = useState("");
     const [organization, setOrganization] = useState("");
@@ -27,17 +26,49 @@ function EmpDetailsForm({obj, slug}) {
     const [frmMsg, setFrmMsg] = useState("");
 
     useEffect(()=>{
+        presetForm();
     }, []);
+
+    function presetForm(){
+        if(obj != null){
+
+            const jDate = (obj.joinedDate!="")? fdt(obj.joinedDate): "";
+            const probDate = (obj.probationEndDate!="")? fdt(obj.probationEndDate): "";
+            const contSDate = (obj.contractStartDate!="")? fdt(obj.contractStartDate): "";
+            const contEDate = (obj.contractEndDate!="")? fdt(obj.contractEndDate): "";
+
+            setCode(obj.EmploymentId);
+            setJobTitle(obj.jobTitle);
+            setOrganization(obj.organization);
+            setDepartment(obj.department);
+            setLocation(obj.location);
+            setEmploymentType(obj.employmentType);
+            setEmploymentStatus(obj.employmentStatus);
+            setJoinedDate(jDate);
+            setProbationEndDate(probDate);
+            setContractStartDate(contSDate);
+            setContractEndDate(contEDate);
+            setSupervisor(obj.supervisor);
+            setGrade(obj.grade);
+            setCategory(obj.category);
+        }
+    }
+
+    function fdt(inDt){
+        const dt = inDt.split("T")[0];
+        const dts = dt.split("-");
+        const dto = new Date(dts[2], dts[1], dts[0]);
+        console.log("dd", dto)
+        return dto;
+    }
 
     const saveForm = async ()=>{
         setFrmMsg("");
         
-            
-        
         setPosting(true);
         
         const dataToSave = {
-            Slug: slug,
+            Slug: obj.slug,
             EmploymentId: code,
             JobTitle: jobTitle,
             Organization: organization,
@@ -54,7 +85,7 @@ function EmpDetailsForm({obj, slug}) {
             Category: category,
         }
         
-        const obj = await empDetailsUpdate(dataToSave);
+        const res = await empDetailsUpdate(dataToSave);
         
         setPosting(true);
             

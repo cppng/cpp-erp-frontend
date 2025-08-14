@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 import { API_URL } from '../../global/components/Constants';
 import { empNokUpdate } from '../../utils/api-services/hr/employee';
 
-function EmpNOKForm({obj, slug}) {
+function EmpNOKForm({obj}) {
 
-    const [formId, setFormId] = useState("0");
     const [name, setName] = useState("");
     const [gender, setGender] = useState("");
     const [email, setEmail] = useState("");
@@ -18,7 +17,20 @@ function EmpNOKForm({obj, slug}) {
     const [frmMsg, setFrmMsg] = useState("");
 
     useEffect(()=>{
+        presetForm();
     }, []);
+
+    function presetForm(){
+        if(obj != null){
+            setName(obj.nokName);
+            setGender(obj.nokGender);
+            setEmail(obj.nokEmail);
+            setPhone(obj.nokPhone);
+            setAddress(obj.nokAddress);
+            setAge(obj.nokAge);
+            setRelationship(obj.nokRelationship);
+        }
+    }
 
     const saveForm = async ()=>{
         setFrmMsg("");
@@ -46,7 +58,7 @@ function EmpNOKForm({obj, slug}) {
         setPosting(true);
     
         const dataToSave = {
-            Slug: slug,
+            Slug: obj.slug,
             Name: name,
             Gender: gender,
             Email: email,
@@ -56,7 +68,7 @@ function EmpNOKForm({obj, slug}) {
             Relationship: relationship
         }
     
-        const obj = await empNokUpdate(dataToSave);
+        const res = await empNokUpdate(dataToSave);
     
         setPosting(true);
         

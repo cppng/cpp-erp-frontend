@@ -105,6 +105,14 @@ function EmpSalaryElemForm({slug}) {
         },
     }
 
+    const itemParams = {
+        showModal: showModal,
+        setFormId: setFormId,
+        setType: setType,
+        setName: setName,
+        setAmount: setAmount
+    }
+
     const form = (
         <Modal show={modal} onHide={closeModal} backdrop="static" keyboard={false}>
             <Modal.Header>
@@ -148,7 +156,7 @@ function EmpSalaryElemForm({slug}) {
 
             <div>
                 {elements.map((itm, index) => (
-                    <EmpSalaryElemItem key={index} obj={itm} params={null} />
+                    <EmpSalaryElemItem key={index} obj={itm} params={itemParams} />
                 ))}
             </div>
 

@@ -3,6 +3,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from 'react-bootstrap/Modal';
+import { getEmployeeBySlug } from '../utils/api-services/hr/employee';
 import "../global/components/scroll-bar.css";
 import EmpBasicForm from './components/EmpBasicForm';
 import EmpContactForm from './components/EmpContactForm';
@@ -31,12 +32,25 @@ const tabs = [
 
 function EmployeeForm() {
 
+    const [empObj, setEmpObj] = useState(null);
     const [selectedTab, setSelectedTab] = useState(tabs[0]);
     const [width, setWidth] = useState(window.innerWidth);
     const [height, setHeight] = useState(window.innerHeight);
+    const [loading, setLoading] = useState(false);
     const isMobile = width <= 768;
 
     const { code } = useParams();
+
+    useEffect(()=>{
+        loadEmployee();
+    }, []);
+    
+    const loadEmployee = async ()=>{
+        setLoading(true);
+        const obj = await getEmployeeBySlug(code);
+        setEmpObj(obj);
+        setLoading(false);
+    }
 
     const updateTab = (itm) => {
         setSelectedTab(itm);
@@ -125,19 +139,20 @@ function EmployeeForm() {
                         <div style={styles.body.wrap}>
 
                             <h2 style={styles.body.title}>{selectedTab.Title}</h2>
-
-                            <div style={styles.body.form}>
-                                {(selectedTab.Code == "Basic") && <EmpBasicForm obj={null} slug={code} />}
-                                {(selectedTab.Code == "Contact") && <EmpContactForm obj={null} slug={code} />}
-                                {(selectedTab.Code == "NOK") && <EmpNOKForm obj={null}  slug={code} />}
-                                {(selectedTab.Code == "Employment") && <EmpDetailsForm obj={null} slug={code} />}
-                                {(selectedTab.Code == "Salary") && <EmpSalaryForm obj={null} slug={code} />}
-                                {(selectedTab.Code == "SalaryElements") && <EmpSalaryElemForm slug={code} />}
-                                {(selectedTab.Code == "Statutory") && <EmpStatutoryForm obj={null} slug={code} />}
-                                {(selectedTab.Code == "Education") && <EmpEduForm obj={null} />}
-                                {(selectedTab.Code == "Work") && <EmpWorkForm obj={null} />}
-                                {(selectedTab.Code == "Skill") && <EmpSkillForm obj={null} />}
-                            </div>
+                            {empObj &&
+                                <div style={styles.body.form}>
+                                    {(selectedTab.Code == "Basic") && <EmpBasicForm obj={empObj}/>}
+                                    {(selectedTab.Code == "Contact") && <EmpContactForm obj={empObj} />}
+                                    {(selectedTab.Code == "NOK") && <EmpNOKForm obj={empObj} />}
+                                    {(selectedTab.Code == "Employment") && <EmpDetailsForm obj={empObj} />}
+                                    {(selectedTab.Code == "Salary") && <EmpSalaryForm obj={empObj} />}
+                                    {(selectedTab.Code == "SalaryElements") && <EmpSalaryElemForm slug={code} />}
+                                    {(selectedTab.Code == "Statutory") && <EmpStatutoryForm obj={empObj} />}
+                                    {(selectedTab.Code == "Education") && <EmpEduForm obj={null} />}
+                                    {(selectedTab.Code == "Work") && <EmpWorkForm obj={null} />}
+                                    {(selectedTab.Code == "Skill") && <EmpSkillForm obj={null} />}
+                                </div>
+                            }
                         </div>
 
 

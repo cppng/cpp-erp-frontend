@@ -6,9 +6,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { empSalaryUpdate } from '../../utils/api-services/hr/employee';
 
-function EmpSalaryForm({obj, slug}) {
+function EmpSalaryForm({obj}) {
 
-    const [formId, setFormId] = useState("0");
     const [basicSalary, setBasicSalary] = useState("");
     const [payGrade, setPayGrade] = useState("");
     const [frequency, setFrequency] = useState("");
@@ -19,7 +18,19 @@ function EmpSalaryForm({obj, slug}) {
     const [frmMsg, setFrmMsg] = useState("");
 
     useEffect(()=>{
+        presetForm();
     }, []);
+
+    function presetForm(){
+        if(obj != null){
+            setBasicSalary(obj.basicSalary);
+            setPayGrade(obj.salaryGrade);
+            setFrequency(obj.payFrequncy);
+            setBank(obj.bankName);
+            setAccountNo(obj.bankAccountNo);
+            setAccountName(obj.bankAccountName);
+        }
+    }
 
     const saveForm = async ()=>{
 
@@ -36,7 +47,7 @@ function EmpSalaryForm({obj, slug}) {
         setPosting(true);
     
         const dataToSave = {
-            Slug: slug,
+            Slug: obj.slug,
             BasicSalary: basicSalary,
             SalaryGrade: payGrade,
             Frequncy: frequency,
@@ -45,7 +56,7 @@ function EmpSalaryForm({obj, slug}) {
             BankAccountName: accountName
         }
     
-        const obj = await empSalaryUpdate(dataToSave);
+        const res = await empSalaryUpdate(dataToSave);
     
         setPosting(true);
     }

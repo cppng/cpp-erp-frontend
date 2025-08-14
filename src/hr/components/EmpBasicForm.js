@@ -5,9 +5,8 @@ import { API_URL } from '../../global/components/Constants';
 import { parsePhotoUtil } from '../../utils/photoUtils';
 import { empBasicUpdate } from '../../utils/api-services/hr/employee';
 
-function EmpBasicForm({obj, slug}) {
+function EmpBasicForm({obj}) {
 
-    const [formId, setFormId] = useState("0");
     const [photo, setPhoto] = useState({Data:"", Selected:false});
     const [title, setTitle] = useState("");
     const [firstName, setFirstName] = useState("");
@@ -22,7 +21,23 @@ function EmpBasicForm({obj, slug}) {
     const [frmMsg, setFrmMsg] = useState("");
 
     useEffect(()=>{
+        presetForm();
     }, []);
+
+    function presetForm(){
+        if(obj != null){
+            setPhoto({Data:obj.photo, Selected:false});
+            setTitle(obj.title);
+            setFirstName(obj.firstName);
+            setMiddleName(obj.middleName);
+            setLastName(obj.lastName);
+            setGender(obj.gender);
+            setMaritalStatus(obj.maritalStatus);
+            setReligion(obj.religion);
+            setTaxId(obj.taxId);
+            setPassport(obj.passportNo);
+        }
+    }
 
     const photoElem = useRef();
     
@@ -62,7 +77,7 @@ function EmpBasicForm({obj, slug}) {
         setPosting(true);
 
         const dataToSave = {
-            Slug: slug,
+            Slug: obj.slug,
             Title: title,
             FirstName: firstName,
             MiddleName: middleName,
@@ -74,7 +89,7 @@ function EmpBasicForm({obj, slug}) {
             PassportNo: passport,
         }
 
-        const obj = await empBasicUpdate(dataToSave);
+        const res = await empBasicUpdate(dataToSave);
 
         setPosting(true);
     }

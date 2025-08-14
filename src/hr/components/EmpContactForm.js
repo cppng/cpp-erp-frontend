@@ -3,9 +3,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { empContactUpdate } from '../../utils/api-services/hr/employee';
 
-function EmpContactForm({obj, slug}) {
+function EmpContactForm({obj}) {
 
-    const [formId, setFormId] = useState("0");
     const [phone, setPhone] = useState("");
     const [phone2, setPhone2] = useState("");
     const [email, setEmail] = useState("");
@@ -18,7 +17,21 @@ function EmpContactForm({obj, slug}) {
     const [frmMsg, setFrmMsg] = useState("");
 
     useEffect(()=>{
+        presetForm();
     }, []);
+
+    function presetForm(){
+        if(obj != null){
+            setPhone(obj.phone);
+            setPhone2(obj.phone2);
+            setEmail(obj.email);
+            setEmail2(obj.email2);
+            setAddress(obj.address);
+            setAddress2(obj.address2);
+            setState(obj.state);
+            setCountry(obj.country);
+        }
+    }
 
     const saveForm = async ()=>{
     
@@ -42,7 +55,7 @@ function EmpContactForm({obj, slug}) {
         setPosting(true);
     
         const dataToSave = {
-            Slug: slug,
+            Slug: obj.slug,
             Phone: phone,
             Phone2: phone2,
             Email: email,
@@ -53,7 +66,7 @@ function EmpContactForm({obj, slug}) {
             Country: country
         }
     
-        const obj = await empContactUpdate(dataToSave);
+        const res = await empContactUpdate(dataToSave);
     
         setPosting(true);
     

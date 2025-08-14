@@ -2,9 +2,8 @@ import React, {useState, useEffect, useRef} from 'react';
 import "react-datepicker/dist/react-datepicker.css";
 import { empStatutoryUpdate } from '../../utils/api-services/hr/employee';
 
-function EmpStatutoryForm({obj, slug}) {
+function EmpStatutoryForm({obj}) {
 
-    const [formId, setFormId] = useState("0");
     const [tin, setTin] = useState("");
     const [pfa, setPfa] = useState("");
     const [pensionNo, setPensionNo] = useState("");
@@ -15,14 +14,26 @@ function EmpStatutoryForm({obj, slug}) {
     const [frmMsg, setFrmMsg] = useState("");
 
     useEffect(()=>{
+        presetForm();
     }, []);
+
+    function presetForm(){
+        if(obj != null){
+            setTin(obj.tin);
+            setPfa(obj.pfa);
+            setPensionNo(obj.pensionNo);
+            setNhf(obj.nhf);
+            setNsitf(obj.nsitf);
+            setNhis(obj.nhis);
+        }
+    }
 
     const saveForm = async ()=>{
     
         setPosting(true);
     
         const dataToSave = {
-            Slug: slug,
+            Slug: obj.slug,
             Tin: tin,
             Pfa: pfa,
             PensionNo: pensionNo,
@@ -31,7 +42,7 @@ function EmpStatutoryForm({obj, slug}) {
             Nhis: nhis
         }
     
-        const obj = await empStatutoryUpdate(dataToSave);
+        const res = await empStatutoryUpdate(dataToSave);
     
         setPosting(true);
     }

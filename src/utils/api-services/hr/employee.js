@@ -113,6 +113,19 @@ export const getEmployees = async (payload) => {
     }
 }
 
+export const getEmployeeBySlug = async (slug) => {
+    try {
+        const response = await axios.get(`${API_URL}hr/employee/employee-details/${slug}`);
+        const obj = response.data;
+        if(obj.success){
+            return obj.data;
+        }
+        return null;
+    } catch (error) {
+        return null;
+    }
+}
+
 export const getEmpPayElemList = async (payload) => {
     try {
         const response = await axios.post(`${API_URL}hr/employee/emp-pay-elem-list`, payload, {
