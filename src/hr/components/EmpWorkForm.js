@@ -8,6 +8,7 @@ import { API_URL } from '../../global/components/Constants';
 import Editor from 'react-simple-wysiwyg';
 import { experienceLevelUtil, jobTypesUtil, workModeUtil } from '../../utils/lookupUtils';
 import DateControl from '../../global/components/DateControl';
+import { ToastContainer, toast } from 'react-toastify';
 
 function EmpWorkForm({obj}) {
 

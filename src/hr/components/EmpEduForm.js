@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { API_URL } from '../../global/components/Constants';
 import { qualificationUtil } from '../../utils/lookupUtils';
 import DateControl from '../../global/components/DateControl';
-
+import { ToastContainer, toast } from 'react-toastify';
 
 function EmpEduForm({obj}) {
 

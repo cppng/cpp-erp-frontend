@@ -6,7 +6,7 @@ import axios from 'axios';
 import { API_URL } from '../../global/components/Constants';
 import '../../global/css/table.css';
 import { getEmployees } from '../../utils/api-services/hr/employee';
-
+import { ToastContainer, toast } from 'react-toastify';
 
 function EmployeeList() {
 

@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import "react-datepicker/dist/react-datepicker.css";
 import { empStatutoryUpdate } from '../../utils/api-services/hr/employee';
+import { ToastContainer, toast } from 'react-toastify';
 
 function EmpStatutoryForm({obj}) {
 
@@ -43,8 +44,13 @@ function EmpStatutoryForm({obj}) {
         }
     
         const res = await empStatutoryUpdate(dataToSave);
+        if(res.success){
+            toast("Updated successfully", {type: "success"});
+        }else{
+            toast("Failed to update record", {type: "error",});
+        }
     
-        setPosting(true);
+        setPosting(false);
     }
 
     const styles = {
@@ -134,8 +140,12 @@ function EmpStatutoryForm({obj}) {
             }
 
             <div className="form-group">
-                <button onClick={saveForm} className='btn btn-primary'>Save Form</button>
+                <button onClick={saveForm} className='btn btn-primary' disabled={posting?"disabled":""}>
+                    {posting?"Saving...": "Save Form"}
+                </button>
             </div>
+
+            <ToastContainer />
         </div>
     )
 }

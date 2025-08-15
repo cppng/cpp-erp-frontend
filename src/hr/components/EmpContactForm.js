@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { empContactUpdate } from '../../utils/api-services/hr/employee';
+import { ToastContainer, toast } from 'react-toastify';
 
 function EmpContactForm({obj}) {
 
@@ -67,8 +68,12 @@ function EmpContactForm({obj}) {
         }
     
         const res = await empContactUpdate(dataToSave);
-    
-        setPosting(true);
+        if(res.success){
+            toast("Updated successfully", {type: "success"});
+        }else{
+            toast("Failed to update record", {type: "error",});
+        }
+        setPosting(false);
     
     }
 
@@ -171,8 +176,12 @@ function EmpContactForm({obj}) {
             <hr />
 
             <div className="form-group">
-                <button onClick={saveForm} className='btn btn-primary'>Save Form</button>
+                <button onClick={saveForm} className='btn btn-primary' disabled={posting?"disabled":""}>
+                    {posting?"Saving...": "Save Form"}
+                </button>
             </div>
+
+            <ToastContainer />
         </div>
     )
 }

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { API_URL } from '../../global/components/Constants';
 import { parsePhotoUtil } from '../../utils/photoUtils';
 import { empBasicUpdate } from '../../utils/api-services/hr/employee';
+import { ToastContainer, toast } from 'react-toastify';
 
 function EmpBasicForm({obj}) {
 
@@ -90,8 +91,13 @@ function EmpBasicForm({obj}) {
         }
 
         const res = await empBasicUpdate(dataToSave);
+        if(res.success){
+            toast("Updated successfully", {type: "success"});
+        }else{
+            toast("Failed to update record", {type: "error",});
+        }
 
-        setPosting(true);
+        setPosting(false);
     }
 
     const styles = {
@@ -229,8 +235,12 @@ function EmpBasicForm({obj}) {
             <hr />
 
             <div className="form-group">
-                <button onClick={saveForm} className='btn btn-primary'>Save Form</button>
+                <button onClick={saveForm} className='btn btn-primary' disabled={posting?"disabled":""}>
+                    {posting?"Saving...": "Save Form"}
+                </button>
             </div>
+
+            <ToastContainer />
         </div>
     )
 }

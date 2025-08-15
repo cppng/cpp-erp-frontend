@@ -5,6 +5,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getEmpPayElemList, empSavePayElem } from '../../utils/api-services/hr/employee';
 import EmpSalaryElemItem from './EmpSalaryElemItem';
+import { ToastContainer, toast } from 'react-toastify';
 
 function EmpSalaryElemForm({slug}) {
 
@@ -14,6 +15,7 @@ function EmpSalaryElemForm({slug}) {
     const [type, setType] = useState("");
     const [name, setName] = useState("");
     const [amount, setAmount] = useState("");
+    const [loading, setLoading] = useState(false);
     const [posting, setPosting] = useState(false);
     const [frmMsg, setFrmMsg] = useState("");
 
@@ -22,10 +24,10 @@ function EmpSalaryElemForm({slug}) {
     }, []);
 
     const loadElements = async ()=>{
-        setPosting(true);
+        setLoading(true);
         const data = await getEmpPayElemList({Slug: slug});
         setElements(data);
-        setPosting(true);
+        setLoading(true);
     }
 
     const showModal = ()=> {
@@ -69,9 +71,12 @@ function EmpSalaryElemForm({slug}) {
         if(obj.success){
             loadElements();
             closeModal();
+            toast("Updated successfully", {type: "success"});
+        }else{
+            toast("Failed to update record", {type: "error",});
         }
     
-        setPosting(true);
+        setPosting(false);
     }
 
     const styles = {
@@ -144,9 +149,12 @@ function EmpSalaryElemForm({slug}) {
                     <div style={styles.errorMsg} className="form-group">{frmMsg}</div>
                 }
 
-                <div className="form-group">
-                    <button onClick={saveForm} className='btn btn-primary'>Save</button>
-                </div>
+            <div className="form-group">
+                <button onClick={saveForm} className='btn btn-primary' disabled={posting?"disabled":""}>
+                    {posting? "Saving...": "Save Form"}
+                </button>
+            </div>
+
             </Modal.Body> 
         </Modal>
     )
@@ -165,7 +173,10 @@ function EmpSalaryElemForm({slug}) {
                     <FontAwesomeIcon icon={faPlus} /> Add Item
                 </button>
             </div>
+
             {form}
+
+            <ToastContainer />
         </div>
     )
 }
