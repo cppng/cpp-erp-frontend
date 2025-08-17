@@ -8,10 +8,14 @@ import {useDispatch, useSelector} from 'react-redux';
 import {headerData} from '../../slices/headerSlice'
 import HeaderDesktop from "./HeaderDesktop";
 import HeaderMobile from "./HeaderMobile";
+
 import HeaderSider from "./HeaderSider";
+import UmHeaderSider from "../../usermanagement/components/UmHeaderSider";
+import HrHeaderSider from "../../hr/components/HrHeaderSider";
+
 import Auth from "../../authentication/Auth";
 
-const Header = ({mode}) => {
+const Header = ({app, mode}) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -65,6 +69,14 @@ const Header = ({mode}) => {
         userNav = <Auth params={authParams} />;
     }
 
+    const displaySider = (
+        <>
+            {(app == "global") && <HeaderSider />}
+            {(app == "user") && <UmHeaderSider />}
+            {(app == "hr") && <HrHeaderSider />}
+        </>
+    ) 
+
     return (
         <>
 
@@ -73,7 +85,7 @@ const Header = ({mode}) => {
                 <HeaderDesktop userNav={userNav} mode={mode} />
             }
 
-            {headData.siderVisible && <HeaderSider />}
+            {headData.siderVisible && displaySider}
 
             <div style={{marginBottom:55}}></div>
 

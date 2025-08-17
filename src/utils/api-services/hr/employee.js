@@ -99,6 +99,20 @@ export const empStatutoryUpdate = async (payload) => {
     }
 }
 
+export const empLoginAccessUpdate = async (payload) => {
+    try {
+        const response = await axios.post(`${API_URL}hr/employee/emp-login-access`, payload, {
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json",
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const getEmployees = async (payload) => {
     try {
         const response = await axios.post(`${API_URL}hr/employee/employee-list`, payload, {
@@ -115,7 +129,20 @@ export const getEmployees = async (payload) => {
 
 export const getEmployeeBySlug = async (slug) => {
     try {
-        const response = await axios.get(`${API_URL}hr/employee/employee-details/${slug}`);
+        const response = await axios.get(`${API_URL}hr/employee/emp-by-slug/${slug}`);
+        const obj = response.data;
+        if(obj.success){
+            return obj.data;
+        }
+        return null;
+    } catch (error) {
+        return null;
+    }
+}
+
+export const getEmployeeByUsername = async (username) => {
+    try {
+        const response = await axios.get(`${API_URL}hr/employee/emp-by-username/${username}`);
         const obj = response.data;
         if(obj.success){
             return obj.data;

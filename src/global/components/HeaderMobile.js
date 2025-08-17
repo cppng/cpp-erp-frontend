@@ -41,12 +41,12 @@ const HeaderMobile = ({userNav, mode}) => {
                     <ul className="navbar-nav">
                         
                         <li className="nav-item dropdown">
-                            <Link to="#" className="nav-link link-m" data-toggle="dropdown">Modules</Link>
+                            <Link to="#" className="nav-link link-m" data-toggle="dropdown">Apps</Link>
                             <div class="dropdown-menu">
-                                <Link to="/course/list" className="dropdown-item">User Management</Link>
-                                <Link to="/contents" className="dropdown-item">HR Management</Link>
-                                <Link to="/contents" className="dropdown-item">Support Management</Link>
-                                <Link to="/events" className="dropdown-item">Asset Management</Link>
+                                <a href="/um/dashboard" className="dropdown-item">User Management</a>
+                                <a href="/hr/dashboard" className="dropdown-item">HR Management</a>
+                                <a href="#" className="dropdown-item">Support Management</a>
+                                <a href="#" className="dropdown-item">Asset Management</a>
                             </div>
                         </li>
                                     

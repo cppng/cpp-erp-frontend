@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from 'react-bootstrap/Modal';
-import { getEmployeeBySlug } from '../utils/api-services/hr/employee';
+import { getEmployeeByUsername } from '../utils/api-services/hr/employee';
 import "../global/components/scroll-bar.css";
 import EmpBasicForm from './components/EmpBasicForm';
 import EmpContactForm from './components/EmpContactForm';
@@ -15,22 +15,20 @@ import EmpStatutoryForm from './components/EmpStatutoryForm';
 import EmpEduForm from './components/EmpEduForm';
 import EmpWorkForm from './components/EmpWorkForm';
 import EmpSkillForm from './components/EmpSkillForm';
+import EmpLoginAccessForm from './components/EmpLoginAccessForm';
 
 const tabs = [
     {Code: "Basic", Name: "PERSONAL INFO", Title: "Personal Information"},
     {Code: "Contact", Name: "CONTACT", Title: "Contact Information"},
     {Code: "NOK", Name: "NEXT OF KIN", Title: "Next of Kin Information"},
     {Code: "Employment", Name: "EMPLOYMENT", Title: "Employment Details"},
-    {Code: "Salary", Name: "SALARY", Title: "Employee Salary"},
-    {Code: "SalaryElements", Name: "BENEFITS / DEDUCTIONS", Title: "Benefits and Deductions"},
-    {Code: "Statutory", Name: "STATUTORY", Title: "Tax & Statutory Information"},
     {Code: "Education", Name: "EDUCATION", Title: "Education and Qualifications"},
     {Code: "Work", Name: "WORK EXPERIENCE", Title: "Past Work Experiencies"},
     {Code: "Skill", Name: "SKILLS", Title: "Skills and Competencies"},
-    {Code: "Document", Name: "DOCUMENTS", Title: "Employee Documents"},
+    {Code: "Document", Name: "DOCUMENTS", Title: "Employee Documents"}
 ]
 
-function EmployeeForm() {
+function HrEmployeeFormUser() {
 
     const [empObj, setEmpObj] = useState(null);
     const [selectedTab, setSelectedTab] = useState(tabs[0]);
@@ -39,7 +37,14 @@ function EmployeeForm() {
     const [loading, setLoading] = useState(false);
     const isMobile = width <= 768;
 
-    const { code } = useParams();
+    let code = "";
+    const session = localStorage.getItem("session");
+    if(session){
+        const sessionObj = JSON.parse(session);
+        code = sessionObj.username;
+        console.log(sessionObj)
+    }
+
 
     useEffect(()=>{
         loadEmployee();
@@ -47,7 +52,7 @@ function EmployeeForm() {
     
     const loadEmployee = async ()=>{
         setLoading(true);
-        const obj = await getEmployeeBySlug(code);
+        const obj = await getEmployeeByUsername(code);
         setEmpObj(obj);
         setLoading(false);
     }
@@ -145,9 +150,6 @@ function EmployeeForm() {
                                     {(selectedTab.Code == "Contact") && <EmpContactForm obj={empObj} />}
                                     {(selectedTab.Code == "NOK") && <EmpNOKForm obj={empObj} />}
                                     {(selectedTab.Code == "Employment") && <EmpDetailsForm obj={empObj} />}
-                                    {(selectedTab.Code == "Salary") && <EmpSalaryForm obj={empObj} />}
-                                    {(selectedTab.Code == "SalaryElements") && <EmpSalaryElemForm slug={code} />}
-                                    {(selectedTab.Code == "Statutory") && <EmpStatutoryForm obj={empObj} />}
                                     {(selectedTab.Code == "Education") && <EmpEduForm obj={null} />}
                                     {(selectedTab.Code == "Work") && <EmpWorkForm obj={null} />}
                                     {(selectedTab.Code == "Skill") && <EmpSkillForm obj={null} />}
@@ -163,4 +165,4 @@ function EmployeeForm() {
     )
 }
 
-export default EmployeeForm;
+export default HrEmployeeFormUser;

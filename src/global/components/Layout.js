@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import {useDispatch, useSelector} from 'react-redux';
 import {setSiderDisplay, setBtnDisplay} from '../../slices/headerSlice'
 
-const Layout = ({header, side, btn, footer, mode}) => {
+const Layout = ({params}) => {
 
     const [width, setWidth] = useState(window.innerWidth);
     const isMobile = width <= 768;
@@ -17,16 +17,16 @@ const Layout = ({header, side, btn, footer, mode}) => {
             dispatch(setSiderDisplay(false))
             dispatch(setBtnDisplay(true));
         }else{
-            dispatch(setSiderDisplay(side))
-            dispatch(setBtnDisplay(btn));
+            dispatch(setSiderDisplay(params.side))
+            dispatch(setBtnDisplay(params.btn));
         }
     }, []);
 
     return (
         <>
-            {header && <Header mode={mode} />}
+            {params.header && <Header app={params.app} mode={params.mode} />}
             <Outlet />
-            {footer && <Footer />}
+            {params.footer && <Footer />}
         </>
     )
 

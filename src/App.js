@@ -13,13 +13,19 @@ import ChangePassword from "./global/ChangePassword";
 import PrivacyPolicy from "./global/PrivacyPolicy";
 import AuthLogout from "./global/components/AuthLogout";
 
-//User Management =================================
+//USER MANAGEMENT =================================
 import UMDashboard from "./usermanagement/UMDashboard";
+import UMUserList from "./usermanagement/UMUserList";
+
+//HR =================================
 import HrDashboard from "./hr/HrDashboard";
-import EmployeeForm from "./hr/EmployeeForm";
+import HrEmployeeForm from "./hr/HrEmployeeForm";
+import HrEmployeeFormUser from "./hr/HrEmployeeFormUser";
+import HrEmployeeList from "./hr/HrEmployeeList";
 
 function App() {
   const session = localStorage.getItem("session");
+  const params = {app:"global", header:false, side:false, btn:false, footer:false, mode:"bright"};
 
   return (
     <BrowserRouter>
@@ -28,32 +34,34 @@ function App() {
       {/*GLOBAL ====================================*/}
       {/*Make the home page dashboard if user is login*/}
       
-      <Route path="/" element={<Layout header={false} side={false} btn={false} footer={false} mode={"bright"} />}>
+      <Route path="/" element={<Layout params={{...params}} />}>
         <Route index element={<Login />}></Route>
       </Route>
-      <Route path="/" element={<Layout header={true} side={true} btn={false} footer={false} mode={"bright"} />}>
+      <Route path="/" element={<Layout params={{...params, header:true, footer:true}} />}>
         <Route exact path='/dashboard'  element={<Dashboard />}></Route>
       </Route>
 
-      <Route path="/" element={<Layout header={true} side={false} btn={false} footer={true} mode={"bright"} />}>
+      <Route path="/" element={<Layout params={{...params, header:true, footer:true}} />}>
         <Route exact path='/contact' element={<Contact />}></Route>
         <Route exact path='/forgot-password' element={<ForgotPassword />}></Route>
         <Route exact path='/mediator/:entry' element={<Mediator />}></Route>
         <Route exact path='/privacy-policy' element={<PrivacyPolicy />}></Route>
       </Route>
 
-      <Route path="/" element={<Layout header={true} side={true} btn={false} footer={false} mode={"bright"} />}>
-        <Route exact path='/dashboard'  element={<Dashboard />}></Route>
-      </Route>
       <Route exact path='/logout' element={<AuthLogout />}></Route>
 
-      <Route path="/" element={<Layout header={true} side={true} btn={false} footer={false} mode={"bright"} />}>
+      {/*USER MANAGEMENT ====================================*/}
+      <Route path="/" element={<Layout params={{...params, app:"user", header:true, side:true, footer:true}} />}>
         <Route exact path='/um/dashboard'  element={<UMDashboard />}></Route>
+        <Route exact path='/um/user-list'  element={<UMUserList />}></Route>
       </Route>
 
-      <Route path="/" element={<Layout header={true} side={true} btn={false} footer={false} mode={"bright"} />}>
+      {/*HCM ====================================*/}
+      <Route path="/" element={<Layout params={{...params, app:"hr", header:true, side:true}} />}>
         <Route exact path='/hr/dashboard'  element={<HrDashboard />}></Route>
-        <Route exact path='/hr/employee-form/:code'  element={<EmployeeForm />}></Route>
+        <Route exact path='/hr/employee-user-form'  element={<HrEmployeeFormUser />}></Route>
+        <Route exact path='/hr/employee-form/:code'  element={<HrEmployeeForm />}></Route>
+        <Route exact path='/hr/employee-list'  element={<HrEmployeeList />}></Route>
       </Route>
 
       </Routes>

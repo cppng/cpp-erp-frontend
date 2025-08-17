@@ -12,7 +12,8 @@ const Dashboard = () => {
 
     const styles = {
         page:{
-            paddingTop: 40
+            paddingTop: 40,
+            paddingBottom: 100
         },
         item: {
             background: '#fff',
@@ -61,7 +62,7 @@ const Dashboard = () => {
 
     function moduleListItem(obj){
         return (
-            <Link to={obj.Url} style={styles.link}>
+            <a href={obj.Url} style={styles.link}>
             <div style={styles.item}>
                 <div style={styles.itemHead}>
                     <div style={styles.itemIcon}>
@@ -72,19 +73,14 @@ const Dashboard = () => {
                 <hr />
                 <div style={styles.itemDesc}>{obj.Description}</div>
             </div>
-            </Link>
+            </a>
         )
     }
     
     return (
         <div style={styles.page}>
             <div className='container'>
-                <div className='row'>
-                    <div className='col-md-2'></div>
-                    <div className='col-md-10'>
-                        {moduleList()}
-                    </div>
-                </div>
+                {moduleList()}
             </div>
         </div>
     )

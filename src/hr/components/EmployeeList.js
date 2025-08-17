@@ -34,7 +34,7 @@ function EmployeeList() {
     }
 
     return (
-        <div>
+        <div className = "table-responsive">
             <table className='table table-bordered table-sm'>
                 <thead>
                     <tr>

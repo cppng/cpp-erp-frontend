@@ -4,13 +4,8 @@ import { API_URL } from '../../global/components/Constants';
 
 function UserForm() {
 
-    const [title, setTitle] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [middleName, setMiddleName] = useState("");
-    const [lastName, setLastName] = useState("");
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
+    const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [posting, setPosting] = useState(false);
     const [frmMsg, setFrmMsg] = useState("");
@@ -22,23 +17,13 @@ function UserForm() {
 
         setFrmMsg("");
 
-        if(firstName == ""){
-            setFrmMsg("Please enter first name");
-            return;
-        }
-
-        if(lastName == ""){
-            setFrmMsg("Please enter last name");
-            return;
-        }
-
         if(username == ""){
             setFrmMsg("Please enter username");
             return;
         }
 
-        if(email == ""){
-            setFrmMsg("Please enter email");
+        if(name == ""){
+            setFrmMsg("Please display name");
             return;
         }
 
@@ -50,13 +35,8 @@ function UserForm() {
         setPosting(true);
 
         const dataToSave = {
-            title: title,
-            firstName: firstName,
-            lastName: lastName,
-            middleName: middleName,
             username: username,
-            email: email,
-            phoneNumber: phone,
+            name: name,
             password: password
         }
 
@@ -113,26 +93,6 @@ function UserForm() {
 
     return (
         <div> 
-                        
-            <div className="form-group">
-                <label style={styles.label}>Title</label>
-                <input type="text" value={title} onChange={e => setTitle(e.target.value)} className="form-control" placeholder="Enter title" />
-            </div>
-
-            <div className="form-group">
-                <label style={styles.label}>First Name</label>
-                <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)} className="form-control" placeholder="Enter first name" />
-            </div>
-
-            <div className="form-group">
-                <label style={styles.label}>Middle Name</label>
-                <input type="text" value={middleName} onChange={e => setMiddleName(e.target.value)} className="form-control" placeholder="Enter middle name" />
-            </div>
-
-            <div className="form-group">
-                <label style={styles.label}>Last Name</label>
-                <input type="text" value={lastName} onChange={e => setLastName(e.target.value)} className="form-control" placeholder="Enter last name" />
-            </div>
 
             <div className="form-group">
                 <label style={styles.label}>Username</label>
@@ -140,13 +100,8 @@ function UserForm() {
             </div>
 
             <div className="form-group">
-                <label style={styles.label}>Email</label>
-                <input type="text" value={email} onChange={e => setEmail(e.target.value)} className="form-control" placeholder="Enter email address" />
-            </div>
-
-            <div className="form-group">
-                <label style={styles.label}>Phone</label>
-                <input type="text" value={phone} onChange={e => setPhone(e.target.value)} className="form-control" placeholder="Enter phone number" />
+                <label style={styles.label}>Display Name</label>
+                <input type="text" value={name} onChange={e => setName(e.target.value)} className="form-control" placeholder="Enter email address" />
             </div>
 
             <div className="form-group">

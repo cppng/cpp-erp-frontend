@@ -27,7 +27,7 @@ function EmpSalaryElemForm({slug}) {
         setLoading(true);
         const data = await getEmpPayElemList({Slug: slug});
         setElements(data);
-        setLoading(true);
+        setLoading(false);
     }
 
     const showModal = ()=> {
