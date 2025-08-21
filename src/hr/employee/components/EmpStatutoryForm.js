@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import "react-datepicker/dist/react-datepicker.css";
-import { empStatutoryUpdate } from '../../utils/api-services/hr/employee';
+import { empStatutoryUpdate } from '../../../utils/api-services/hr/employee';
 import { ToastContainer, toast } from 'react-toastify';
 
 function EmpStatutoryForm({obj}) {

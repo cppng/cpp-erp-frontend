@@ -37,11 +37,11 @@ const HrHeaderSider = () => {
 
         {type:"space"},
         {type:"label", name: "PAYROLL"},
-        {type:"link", url: "#", icon:faUser, name:"Run Salary"},
+        {type:"link", url: "/hr/run-salary", icon:faUser, name:"Run Salary"},
 
         {type:"space"},
         {type:"label", name: "REPORTS"},
-        {type:"link", url: "#", icon:faUser, name:"Pay Slip"},
+        {type:"link", url: "/hr/report/payslip", icon:faUser, name:"Pay Slip"},
 
         {type:"space"},
         {type:"label", name: "OTHERS"},

@@ -1,9 +1,9 @@
 import React, {useState, useEffect, useRef} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { API_URL } from '../../global/components/Constants';
-import { parsePhotoUtil } from '../../utils/photoUtils';
-import { empBasicUpdate } from '../../utils/api-services/hr/employee';
+import { API_URL } from '../../../global/components/Constants';
+import { parsePhotoUtil } from '../../../utils/photoUtils';
+import { empBasicUpdate } from '../../../utils/api-services/hr/employee';
 import { ToastContainer, toast } from 'react-toastify';
 
 function EmpBasicForm({obj}) {

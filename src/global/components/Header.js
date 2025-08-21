@@ -11,7 +11,7 @@ import HeaderMobile from "./HeaderMobile";
 
 import HeaderSider from "./HeaderSider";
 import UmHeaderSider from "../../usermanagement/components/UmHeaderSider";
-import HrHeaderSider from "../../hr/components/HrHeaderSider";
+import HrHeaderSider from "../../hr/global/HrHeaderSider";
 
 import Auth from "../../authentication/Auth";
 

@@ -4,10 +4,10 @@ import Modal from 'react-bootstrap/Modal';
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from 'react-router-dom';
-import { API_URL } from '../../global/components/Constants';
+import { API_URL } from '../../../global/components/Constants';
 import Editor from 'react-simple-wysiwyg';
-import { experienceLevelUtil, jobTypesUtil, workModeUtil } from '../../utils/lookupUtils';
-import DateControl from '../../global/components/DateControl';
+import { experienceLevelUtil, jobTypesUtil, workModeUtil } from '../../../utils/lookupUtils';
+import DateControl from '../../../global/components/DateControl';
 import { ToastContainer, toast } from 'react-toastify';
 
 function EmpWorkForm({obj}) {

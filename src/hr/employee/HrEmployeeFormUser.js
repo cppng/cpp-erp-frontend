@@ -3,8 +3,8 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from 'react-bootstrap/Modal';
-import { getEmployeeBySlug } from '../utils/api-services/hr/employee';
-import "../global/components/scroll-bar.css";
+import { getEmployeeByUsername } from '../../utils/api-services/hr/employee';
+import "../../global/components/scroll-bar.css";
 import EmpBasicForm from './components/EmpBasicForm';
 import EmpContactForm from './components/EmpContactForm';
 import EmpNOKForm from './components/EmpNOKForm';
@@ -22,17 +22,13 @@ const tabs = [
     {Code: "Contact", Name: "CONTACT", Title: "Contact Information"},
     {Code: "NOK", Name: "NEXT OF KIN", Title: "Next of Kin Information"},
     {Code: "Employment", Name: "EMPLOYMENT", Title: "Employment Details"},
-    {Code: "Salary", Name: "SALARY", Title: "Employee Salary"},
-    {Code: "SalaryElements", Name: "BENEFITS / DEDUCTIONS", Title: "Benefits and Deductions"},
-    {Code: "Statutory", Name: "STATUTORY", Title: "Tax & Statutory Information"},
-    {Code: "Login", Name: "LOGIN ACCESS", Title: "User Login Access"},
     {Code: "Education", Name: "EDUCATION", Title: "Education and Qualifications"},
     {Code: "Work", Name: "WORK EXPERIENCE", Title: "Past Work Experiencies"},
     {Code: "Skill", Name: "SKILLS", Title: "Skills and Competencies"},
     {Code: "Document", Name: "DOCUMENTS", Title: "Employee Documents"}
 ]
 
-function HrEmployeeForm() {
+function HrEmployeeFormUser() {
 
     const [empObj, setEmpObj] = useState(null);
     const [selectedTab, setSelectedTab] = useState(tabs[0]);
@@ -41,7 +37,14 @@ function HrEmployeeForm() {
     const [loading, setLoading] = useState(false);
     const isMobile = width <= 768;
 
-    const { code } = useParams();
+    let code = "";
+    const session = localStorage.getItem("session");
+    if(session){
+        const sessionObj = JSON.parse(session);
+        code = sessionObj.username;
+        console.log(sessionObj)
+    }
+
 
     useEffect(()=>{
         loadEmployee();
@@ -49,7 +52,7 @@ function HrEmployeeForm() {
     
     const loadEmployee = async ()=>{
         setLoading(true);
-        const obj = await getEmployeeBySlug(code);
+        const obj = await getEmployeeByUsername(code);
         setEmpObj(obj);
         setLoading(false);
     }
@@ -147,10 +150,6 @@ function HrEmployeeForm() {
                                     {(selectedTab.Code == "Contact") && <EmpContactForm obj={empObj} />}
                                     {(selectedTab.Code == "NOK") && <EmpNOKForm obj={empObj} />}
                                     {(selectedTab.Code == "Employment") && <EmpDetailsForm obj={empObj} />}
-                                    {(selectedTab.Code == "Salary") && <EmpSalaryForm obj={empObj} />}
-                                    {(selectedTab.Code == "SalaryElements") && <EmpSalaryElemForm slug={code} />}
-                                    {(selectedTab.Code == "Statutory") && <EmpStatutoryForm obj={empObj} />}
-                                    {(selectedTab.Code == "Login") && <EmpLoginAccessForm obj={empObj} />}
                                     {(selectedTab.Code == "Education") && <EmpEduForm obj={null} />}
                                     {(selectedTab.Code == "Work") && <EmpWorkForm obj={null} />}
                                     {(selectedTab.Code == "Skill") && <EmpSkillForm obj={null} />}
@@ -166,4 +165,4 @@ function HrEmployeeForm() {
     )
 }
 
-export default HrEmployeeForm;
+export default HrEmployeeFormUser;

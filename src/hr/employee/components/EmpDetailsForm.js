@@ -1,10 +1,10 @@
 import React, {useState, useEffect, useRef} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { API_URL } from '../../global/components/Constants';
+import { API_URL } from '../../../global/components/Constants';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { empDetailsUpdate } from '../../utils/api-services/hr/employee';
+import { empDetailsUpdate } from '../../../utils/api-services/hr/employee';
 import { ToastContainer, toast } from 'react-toastify';
 
 function EmpDetailsForm({obj}) {

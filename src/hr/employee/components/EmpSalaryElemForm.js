@@ -3,7 +3,7 @@ import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getEmpPayElemList, empSavePayElem } from '../../utils/api-services/hr/employee';
+import { getEmpPayElemList, empSavePayElem } from '../../../utils/api-services/hr/employee';
 import EmpSalaryElemItem from './EmpSalaryElemItem';
 import { ToastContainer, toast } from 'react-toastify';
 

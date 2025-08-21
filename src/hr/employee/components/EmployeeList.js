@@ -3,9 +3,9 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from 'axios';
-import { API_URL } from '../../global/components/Constants';
-import '../../global/css/table.css';
-import { getEmployees } from '../../utils/api-services/hr/employee';
+import { API_URL } from '../../../global/components/Constants';
+import '../../../global/css/table.css';
+import { getEmployees } from '../../../utils/api-services/hr/employee';
 import { ToastContainer, toast } from 'react-toastify';
 
 function EmployeeList() {

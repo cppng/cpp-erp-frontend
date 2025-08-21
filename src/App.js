@@ -18,10 +18,13 @@ import UMDashboard from "./usermanagement/UMDashboard";
 import UMUserList from "./usermanagement/UMUserList";
 
 //HR =================================
-import HrDashboard from "./hr/HrDashboard";
-import HrEmployeeForm from "./hr/HrEmployeeForm";
-import HrEmployeeFormUser from "./hr/HrEmployeeFormUser";
-import HrEmployeeList from "./hr/HrEmployeeList";
+import HrDashboard from "./hr/global/HrDashboard";
+import HrEmployeeForm from "./hr/employee/HrEmployeeForm";
+import HrEmployeeFormUser from "./hr/employee/HrEmployeeFormUser";
+import HrEmployeeList from "./hr/employee/HrEmployeeList";
+import HrRunSalary from "./hr/payroll/HrRunSalary";
+import HrPayslip from "./hr/report/HrPayslip";
+import HrPayslipReport from "./hr/report/HrPayslipReport";
 
 function App() {
   const session = localStorage.getItem("session");
@@ -62,6 +65,9 @@ function App() {
         <Route exact path='/hr/employee-user-form'  element={<HrEmployeeFormUser />}></Route>
         <Route exact path='/hr/employee-form/:code'  element={<HrEmployeeForm />}></Route>
         <Route exact path='/hr/employee-list'  element={<HrEmployeeList />}></Route>
+        <Route exact path='/hr/run-salary'  element={<HrRunSalary />}></Route>
+        <Route exact path='/hr/report/payslip'  element={<HrPayslip />}></Route>
+        <Route exact path='/hr/report/payslip-resport/:month'  element={<HrPayslipReport />}></Route>
       </Route>
 
       </Routes>

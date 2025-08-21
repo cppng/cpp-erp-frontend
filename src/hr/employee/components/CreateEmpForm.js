@@ -4,7 +4,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from 'axios';
-import { API_URL } from '../../global/components/Constants';
+import { API_URL } from '../../../global/components/Constants';
 
 function CreateEmpForm() {
 

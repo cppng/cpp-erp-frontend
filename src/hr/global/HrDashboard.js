@@ -2,8 +2,8 @@ import React, {useState, useEffect} from 'react'
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CreateEmpForm from './components/CreateEmpForm';
-import EmployeeList from './components/EmployeeList';
+import CreateEmpForm from '../employee/components/CreateEmpForm';
+import EmployeeList from '../employee/components/EmployeeList';
 
 function HrDashboard() {
 

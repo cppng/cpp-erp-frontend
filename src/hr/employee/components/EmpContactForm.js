@@ -1,19 +1,19 @@
 import React, {useState, useEffect, useRef} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { API_URL } from '../../global/components/Constants';
-import { empNokUpdate } from '../../utils/api-services/hr/employee';
+import { empContactUpdate } from '../../../utils/api-services/hr/employee';
 import { ToastContainer, toast } from 'react-toastify';
 
-function EmpNOKForm({obj}) {
+function EmpContactForm({obj}) {
 
-    const [name, setName] = useState("");
-    const [gender, setGender] = useState("");
-    const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
+    const [phone2, setPhone2] = useState("");
+    const [email, setEmail] = useState("");
+    const [email2, setEmail2] = useState("");
     const [address, setAddress] = useState("");
-    const [age, setAge] = useState("");
-    const [relationship, setRelationship] = useState("");
+    const [address2, setAddress2] = useState("");
+    const [state, setState] = useState("");
+    const [country, setCountry] = useState("");
     const [posting, setPosting] = useState(false);
     const [frmMsg, setFrmMsg] = useState("");
 
@@ -23,36 +23,33 @@ function EmpNOKForm({obj}) {
 
     function presetForm(){
         if(obj != null){
-            setName(obj.nokName);
-            setGender(obj.nokGender);
-            setEmail(obj.nokEmail);
-            setPhone(obj.nokPhone);
-            setAddress(obj.nokAddress);
-            setAge(obj.nokAge);
-            setRelationship(obj.nokRelationship);
+            setPhone(obj.phone);
+            setPhone2(obj.phone2);
+            setEmail(obj.email);
+            setEmail2(obj.email2);
+            setAddress(obj.address);
+            setAddress2(obj.address2);
+            setState(obj.state);
+            setCountry(obj.country);
         }
     }
 
     const saveForm = async ()=>{
+    
         setFrmMsg("");
     
-        if(name == ""){
-            setFrmMsg("Please enter name");
+        if(phone == ""){
+            setFrmMsg("Please enter first name");
             return;
         }
     
-        if(gender == ""){
-            setFrmMsg("Please enter gender");
-            return;
-        }
-
-        if(phone == ""){
-            setFrmMsg("Please enter phone");
+        if(email == ""){
+            setFrmMsg("Please enter last name");
             return;
         }
 
         if(address == ""){
-            setFrmMsg("Please enter address");
+            setFrmMsg("Please enter last name");
             return;
         }
     
@@ -60,26 +57,25 @@ function EmpNOKForm({obj}) {
     
         const dataToSave = {
             Slug: obj.slug,
-            Name: name,
-            Gender: gender,
-            Email: email,
             Phone: phone,
+            Phone2: phone2,
+            Email: email,
+            Email2: email2,
             Address: address,
-            Age: age,
-            Relationship: relationship
+            Address2: address2,
+            State: state,
+            Country: country
         }
     
-        const res = await empNokUpdate(dataToSave);
+        const res = await empContactUpdate(dataToSave);
         if(res.success){
             toast("Updated successfully", {type: "success"});
         }else{
             toast("Failed to update record", {type: "error",});
         }
-
         setPosting(false);
-        
+    
     }
-
 
     const styles = {
         page:{
@@ -134,42 +130,43 @@ function EmpNOKForm({obj}) {
         <div> 
 
             <div className="form-group">
-                <label style={styles.label}>Name</label>
-                <input type="text" value={name} onChange={e => setName(e.target.value)} className="form-control" placeholder="Enter full name" />
+                <label style={styles.label}>Phone Number (Official)</label>
+                <input type="text" value={phone} onChange={e => setPhone(e.target.value)} className="form-control" placeholder="Enter official phone number" />
             </div>
 
             <div className="form-group">
-                <label style={styles.label}>Gender</label>
-                <select value={gender} onChange={e => setGender(e.target.value)} className="form-control">
-                    <option key={0} value={""}>- Select -</option>
-                    <option key={1} value={"Male"}>Male</option>
-                    <option key={2} value={"Female"}>Female</option>
-                </select>
+                <label style={styles.label}>Phone Number (Personal)</label>
+                <input type="text" value={phone2} onChange={e => setPhone2(e.target.value)} className="form-control" placeholder="Enter personal phone number" />
             </div>
 
             <div className="form-group">
-                <label style={styles.label}>Email Address</label>
-                <input type="text" value={email} onChange={e => setEmail(e.target.value)} className="form-control" placeholder="Enter email address" />
+                <label style={styles.label}>Email Address (Official)</label>
+                <input type="text" value={email} onChange={e => setEmail(e.target.value)} className="form-control" placeholder="Enter official email address" />
             </div>
 
             <div className="form-group">
-                <label style={styles.label}>Phone Number</label>
-                <input type="text" value={phone} onChange={e => setPhone(e.target.value)} className="form-control" placeholder="Enter phone number" />
+                <label style={styles.label}>Email Address (Personal)</label>
+                <input type="text" value={email2} onChange={e => setEmail2(e.target.value)} className="form-control" placeholder="Enter official email address" />
             </div>
 
             <div className="form-group">
-                <label style={styles.label}>Address</label>
-                <textarea value={address} onChange={e => setAddress(e.target.value)} className="form-control" placeholder="Enter address"></textarea>
+                <label style={styles.label}>Address 1</label>
+                <textarea value={address} onChange={e => setAddress(e.target.value)} className="form-control" placeholder="Enter address 1"></textarea>
             </div>
 
             <div className="form-group">
-                <label style={styles.label}>Age</label>
-                <input type="text" value={age} onChange={e => setAge(e.target.value)} className="form-control" placeholder="Enter next of kin age" />
+                <label style={styles.label}>Address 2</label>
+                <textarea value={address2} onChange={e => setAddress2(e.target.value)} className="form-control" placeholder="Enter address 2"></textarea>
+            </div>
+                        
+            <div className="form-group">
+                <label style={styles.label}>State of Origin</label>
+                <input type="text" value={state} onChange={e => setState(e.target.value)} className="form-control" placeholder="Enter state" />
             </div>
 
             <div className="form-group">
-                <label style={styles.label}>Relationship</label>
-                <input type="text" value={relationship} onChange={e => setRelationship(e.target.value)} className="form-control" placeholder="Enter relationship" />
+                <label style={styles.label}>Nationality</label>
+                <input type="text" value={country} onChange={e => setCountry(e.target.value)} className="form-control" placeholder="Enter nationality" />
             </div>
 
             {frmMsg != "" && 
@@ -189,4 +186,4 @@ function EmpNOKForm({obj}) {
     )
 }
 
-export default EmpNOKForm;
+export default EmpContactForm;
